@@ -24,15 +24,15 @@ class Word extends Equatable {
       letters[currentIndex] =
           Letter(val: val); //sets letters at proper positions
     }
+  }
 
-    void removeLetter() {
-      final recentLetterIndex =
-          letters.lastIndexWhere(//index of most recent letter
-              (e) => e.val.isNotEmpty); //last index that is not empty string
-      if (recentLetterIndex != -1) {
-        letters[recentLetterIndex] =
-            Letter.empty(); //empty letter at that position
-      }
+  void removeLetter() {
+    final recentLetterIndex =
+        letters.lastIndexWhere(//index of most recent letter
+            (e) => e.val.isNotEmpty); //last index that is not empty string
+    if (recentLetterIndex != -1) {
+      letters[recentLetterIndex] =
+          Letter.empty(); //empty letter at that position
     }
   }
 
