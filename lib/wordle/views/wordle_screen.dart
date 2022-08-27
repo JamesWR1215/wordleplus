@@ -32,7 +32,7 @@ class _WordleScreenState extends State<WordleScreen> {
   );
 
   final List<List<GlobalKey<FlipCardState>>> _flipCardKeys = List.generate(
-    //list of flip card keys & states
+    //list of lists of global flip card keys & states
     6,
     (_) => List.generate(5, (_) => GlobalKey<FlipCardState>()),
   );
@@ -85,10 +85,10 @@ class _WordleScreenState extends State<WordleScreen> {
   }
 
   void _onKeyTapped(String val) {
-    //takes string
     if (_gameStatus == GameStatus.playing) {
       //checks if game status is playing
-      setState(() => _currentWord?.addLetter(val)); //add letter to word
+      setState(() =>
+          _currentWord?.addLetter(val)); //add letter to word and rebuild UI
     }
   }
 
@@ -108,7 +108,7 @@ class _WordleScreenState extends State<WordleScreen> {
           GameStatus.submitting; // prevents users from spamming enter button
 
       for (var i = 0; i < _currentWord!.letters.length; i++) {
-        //compare submited word with solution
+        //compare submited word with solution, iterate thru both words
         final currentWordLetter = _currentWord!.letters[i];
         final currentSolutionLetter = _solution.letters[i];
 
@@ -127,6 +127,7 @@ class _WordleScreenState extends State<WordleScreen> {
         });
 
         final letter = _keyboardLetters.firstWhere(
+          //grab existing letter
           (e) => e.val == currentWordLetter.val,
           orElse: () => Letter.empty(),
         );
@@ -140,7 +141,7 @@ class _WordleScreenState extends State<WordleScreen> {
           const Duration(microseconds: 150),
           () => _flipCardKeys[_currentWordIndex][i]
               .currentState
-              ?.toggleCard(), //flip card
+              ?.toggleCard(), //flip card after word's letter status updated
         );
       }
 
@@ -187,6 +188,7 @@ class _WordleScreenState extends State<WordleScreen> {
         ),
       );
     } else {
+      //user has not won or lost yet
       _gameStatus = GameStatus.playing;
     }
     _currentWordIndex += 1;
@@ -206,10 +208,10 @@ class _WordleScreenState extends State<WordleScreen> {
           ),
         );
       _solution = Word.fromString(
-        fiveLetterWords[Random().nextInt(fiveLetterWords.length)]
-            .toUpperCase(), //set solution to new random word
+        //set solution to new random word
+        fiveLetterWords[Random().nextInt(fiveLetterWords.length)].toUpperCase(),
       );
-      _flipCardKeys
+      _flipCardKeys //reset flipcard keys to initial state
         ..clear()
         ..addAll(
           List.generate(
@@ -217,7 +219,7 @@ class _WordleScreenState extends State<WordleScreen> {
             (_) => List.generate(5, (_) => GlobalKey<FlipCardState>()),
           ),
         );
-      _keyboardLetters.clear();
+      _keyboardLetters.clear(); //clears status of all letters
     });
   }
 }

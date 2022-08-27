@@ -45,6 +45,7 @@ class Keyboard extends StatelessWidget {
                   }
 
                   final letterKey = letters.firstWhere(
+                    //take current letter
                     (e) => e.val == letter,
                     orElse: () => Letter.empty(),
                   );
@@ -52,7 +53,9 @@ class Keyboard extends StatelessWidget {
                   return _KeyboardButton(
                     onTap: () => onKeyTapped(letter),
                     letter: letter,
-                    backgroundColor: letterKey != Letter.empty()
+                    backgroundColor: letterKey !=
+                            Letter
+                                .empty() //change background color based on status
                         ? letterKey.backgroundColor
                         : Colors.grey,
                   );
@@ -76,7 +79,9 @@ class _KeyboardButton extends StatelessWidget {
   }) : super(key: key);
 
   factory _KeyboardButton.delete({
-    required VoidCallback onTap,
+    //unique compared to normal letter key
+    required VoidCallback
+        onTap, //use factory constructor to create consistent version of button
   }) =>
       _KeyboardButton(
         width: 56,
@@ -86,7 +91,9 @@ class _KeyboardButton extends StatelessWidget {
       );
 
   factory _KeyboardButton.enter({
-    required VoidCallback onTap,
+    //unique compared to normal letter key
+    required VoidCallback
+        onTap, ////use factory constructor to create consistent version of button
   }) =>
       _KeyboardButton(
         width: 56,
