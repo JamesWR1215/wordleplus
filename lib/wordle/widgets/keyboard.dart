@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:wordleplus/wordle/models/letter_model.dart';
 
 const _qwerty = [
   //each row represents a row on the keyboard
@@ -15,6 +16,7 @@ class Keyboard extends StatelessWidget {
     required this.onKeyTapped,
     required this.onDeleteTapped,
     required this.onEnterTapped,
+    required this.letters,
   }) : super(key: key);
 
   final void Function(String) onKeyTapped;
@@ -22,6 +24,8 @@ class Keyboard extends StatelessWidget {
   final VoidCallback onDeleteTapped;
 
   final VoidCallback onEnterTapped;
+
+  final Set<Letter> letters;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +43,18 @@ class Keyboard extends StatelessWidget {
                   } else if (letter == 'ENTER') {
                     return _KeyboardButton.enter(onTap: onEnterTapped);
                   }
+
+                  final letterKey = letters.firstWhere(
+                    (e) => e.val == letter,
+                    orElse: () => Letter.empty(),
+                  );
+
                   return _KeyboardButton(
                     onTap: () => onKeyTapped(letter),
                     letter: letter,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: letterKey != Letter.empty()
+                        ? letterKey.backgroundColor
+                        : Colors.grey,
                   );
                 },
               ).toList(),

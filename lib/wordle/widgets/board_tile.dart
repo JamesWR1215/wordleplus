@@ -3,7 +3,12 @@ import 'package:wordleplus/wordle/wordle.dart';
 import '../models/letter_model.dart';
 
 class BoardTile extends StatelessWidget {
-  const BoardTile({Key? key, required this.letter}) : super(key: key);
+  const BoardTile(
+      {Key? key,
+      required this.letter,
+      required String val,
+      required LetterStatus status})
+      : super(key: key);
   final Letter letter;
 
   @override

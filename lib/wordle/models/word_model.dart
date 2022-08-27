@@ -36,6 +36,6 @@ class Word extends Equatable {
     }
   }
 
-  @override // dont forget to add props
+  @override // dont forget to add props?
   List<Object?> get props => [letters];
 }

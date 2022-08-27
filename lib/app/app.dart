@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../wordle/views/wordle_screen.dart';
+
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
