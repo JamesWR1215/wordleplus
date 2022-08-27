@@ -33,6 +33,7 @@ class Board extends StatelessWidget {
                       (j, letter) => MapEntry(
                         j,
                         FlipCard(
+                          //flip tiles when state changes
                           key: flipCardKeys[i][j],
                           flipOnTouch: false,
                           direction: FlipDirection.VERTICAL,
